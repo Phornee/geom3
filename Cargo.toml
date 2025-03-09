@@ -1,0 +1,13 @@
+[package]
+name = "geom3"
+version = "0.1.0"
+edition = "2024"
+authors = ["Ismael Raya"]
+description = "3d geometry classes"
+license-file = "LICENSE"
+repository = "https://github.com/xxxx"
+keywords = ["maths", "geometry", "vector", "line", "plane", "sphere"]
+categories = ["mathematics", "graphics"]
+
+[dependencies]
+vector3 = "2.0.1"
