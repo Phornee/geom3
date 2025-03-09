@@ -5,7 +5,7 @@ edition = "2024"
 authors = ["Ismael Raya"]
 description = "3d geometry classes"
 license-file = "LICENSE"
-repository = "https://github.com/xxxx"
+repository = "https://github.com/Phornee/geom3"
 keywords = ["maths", "geometry", "vector", "line", "plane", "sphere"]
 categories = ["mathematics", "graphics"]
 
