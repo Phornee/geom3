@@ -8,6 +8,9 @@ license = "MIT"
 repository = "https://github.com/Phornee/geom3"
 keywords = ["maths", "geometry", "line", "plane", "sphere"]
 categories = ["mathematics", "graphics"]
+readme = "README.md"
+homepage = "https://github.com/Phornee/geom3"
+documentation = "https://docs.rs/geom3"
 
 [dependencies]
 list = "0.1.3"
