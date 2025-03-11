@@ -23,23 +23,5 @@ Go to this crate's crates.io page and look right
 Proper unit tests
 
 ## Examples:
-```rust
-let a = Vector3::from_i32(1, 2, 3);
-let b = Vector3::from_i32(1,2,3);
-
-assert_eq!(a.dot(&b), 14.0);
-```
-
-```rust
-let a = Vector3::from_i32(1, 2, 3);
-let b = Vector3::from_i32(3, 2, 1);
-
-assert_eq!(a.cross(&b), Vector3::from_i32(-4, 8, -4));
-```
-
-```rust
-let a = Vector3::from_i32(1, 0, 0);
-let b = Vector3::from_i32(0, 0, 1);
-
-assert_eq!(a.angle(b) * (180.0 / PI), 90.0);
+Please, take a look to the unittests for examples
 ```
