@@ -1,4 +1,4 @@
-# vector3
+# geom3
 
 ## What is it?
 `geom3` is a rust library for dealing with 3D basic geometric calculations, such as Lines, Spheres or Planes.
