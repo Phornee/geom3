@@ -23,7 +23,7 @@ impl Plane {
         self.n
     }
 
-    pub fn intersects(&self, line: Line3) -> List<f64> {
+    pub fn intersects(&self, line: &Line3) -> List<f64> {
         let mut intersections = List::<f64>::new();
 
         let denom = self.n.dot(&line.v);
