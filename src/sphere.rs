@@ -19,7 +19,7 @@ impl Sphere {
         (point - self.c).normalize()
     }
 
-    pub fn intersects(&self, line: Line3) -> List::<f64> {
+    pub fn intersects(&self, line: &Line3) -> List::<f64> {
         let mut intersections = List::<f64>::new();
 
         if line.qa != 0. {
