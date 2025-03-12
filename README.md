@@ -9,18 +9,14 @@ It uses `vector3` project for managing 3d vectors (https://docs.rs/crate/vector3
 
 ## How do I get started?
 Make sure you have a project set up using `cargo` then:
-
-### If using `cargo-edit`: 
-`cd` into the said project directory and execute
 ```
 cargo add geom3
 ```
-
-### If not using `cargo-edit`:
-Go to this crate's crates.io page and look right
+## Changelog
+Braking changes: changed interface to get input paremeters as references instead of values
 
 ## Pending:
-Proper unit tests
+Proper documentation
 
 ## Examples:
 `geom3` uses the vectorial form of the line to calculate intersections. It will calculate only the lambda of each intersection.

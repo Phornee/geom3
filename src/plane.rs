@@ -11,15 +11,15 @@ pub struct Plane {
 
 impl Plane {
     /// Creates a new `Plane`.
-    pub fn new(a: Vector3, n: Vector3) -> Plane {
+    pub fn new(a: &Vector3, n: &Vector3) -> Plane {
         Self {
-            a: a,
+            a: *a,
             n: n.normalize(),
             d: -n.dot(&a)
         }
     }
 
-    pub fn normal(&self, _point: Vector3) -> Vector3 {
+    pub fn normal(&self, _point: &Vector3) -> Vector3 {
         self.n
     }
 

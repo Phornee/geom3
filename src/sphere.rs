@@ -11,12 +11,12 @@ pub struct Sphere {
 
 impl Sphere {
     /// Creates a new `Sphere`.
-    pub fn new(c: Vector3, r: f64) -> Sphere {
-        Self { c, r}
+    pub fn new(c: &Vector3, r: f64) -> Sphere {
+        Self { c: *c, r}
     }
 
-    pub fn normal(&self, point: Vector3) -> Vector3 {
-        (point - self.c).normalize()
+    pub fn normal(&self, point: &Vector3) -> Vector3 {
+        (*point - self.c).normalize()
     }
 
     pub fn intersects(&self, line: &Line3) -> List::<f64> {

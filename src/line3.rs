@@ -10,10 +10,10 @@ pub struct Line3 {
 
 impl Line3 {
     /// Creates a new `Line3`.
-    pub fn new(a: Vector3, b:Vector3) -> Line3 {
-        let v = b - a;
+    pub fn new(a: &Vector3, b:&Vector3) -> Line3 {
+        let v = *b - *a;
         let qa = v.x.powi(2) + v.y.powi(2) + v.z.powi(2);
-        Self { a, v, qa }
+        Self { a: *a, v, qa }
     }
 
     pub fn calc_point(&self, lambda: f64) -> Vector3 {
