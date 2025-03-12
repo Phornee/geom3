@@ -23,5 +23,8 @@ Go to this crate's crates.io page and look right
 Proper unit tests
 
 ## Examples:
-Please, take a look to the unittests for examples
+`geom3` uses the vectorial form of the line to calculate intersections. It will calculate only the lambda of each intersection This provides:
+### Better performace: If you just want to know if there is intersection, It Will be faster
+### If you need the point of each intersection, you can easily calculate it with the calc_point function of the `Line3`.
+Please, take a look to the unittests for more examples
 ```
