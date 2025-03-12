@@ -23,8 +23,18 @@ Go to this crate's crates.io page and look right
 Proper unit tests
 
 ## Examples:
-`geom3` uses the vectorial form of the line to calculate intersections. It will calculate only the lambda of each intersection This provides:
-### Better performace: If you just want to know if there is intersection, It Will be faster
-### If you need the point of each intersection, you can easily calculate it with the calc_point function of the `Line3`.
+`geom3` uses the vectorial form of the line to calculate intersections. It will calculate only the lambda of each intersection.
+```rust
+let sphere = Sphere::new(Vector3::new(0.0, 0.0, 0.0), 2.0);
+let line = Line3::new(Vector3::new(0.0, 0.0, 0.0), Vector3::new(0.0, 0.0, 10.0));
+let instersection: List::<f64> = sphere.intersects(&line);
+for (_i, &value) in instersection.iter().enumerate() {
+     let point = line.calc_point(value);
+}
+```
+This provides:
+* Better performace: If you just want to know if there is intersection, It will be faster
+* If you need the point of each intersection, you can easily calculate it with the calc_point function of the `Line3`.
+* More flexibility: if you want not only to know if it intersects, but also if it intersects "behind" or "beyond" the line director vector, you can easily do it checking if lambda is negative or higher than 1.0
 Please, take a look to the unittests for more examples
 ```
