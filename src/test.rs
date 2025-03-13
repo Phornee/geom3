@@ -9,6 +9,11 @@ mod tests {
         let a = Vector3::new(0.0, 0.0, 0.0);
         let b = Vector3::new(0.0, 0.0, 10.0);
 
+        let result = std::panic::catch_unwind(|| {
+            let _wrong_line = Line3::new(&a, &a);
+        });
+        assert!(result.is_err());
+
         let line = Line3::new(&a, &b);
         assert_eq!(line.calc_point(0.), a);
         assert_eq!(line.calc_point(1.), b);
@@ -28,10 +33,6 @@ mod tests {
         let instersection: List::<f64> = sphere.intersects(&line);
         assert_eq!(instersection.iter().count(), 2);
 
-        // for (_i, &value) in instersection.iter().enumerate() {
-        //     let point = line.calc_point(value);
-        // }
-
         let tangent_instersection: List::<f64> = sphere.intersects(&tangent_line);
         assert_eq!(tangent_instersection.iter().count(), 1);
 
@@ -43,7 +44,7 @@ mod tests {
     fn plane_tests() {
         let plane = Plane::new(&Vector3::new(0.0, 0.0, 0.0), &Vector3::new(1.0, 1.0, 0.0));
 
-        let horizontal_line = Line3::new(&Vector3::new(0.0, 1.0, 0.0), &Vector3::new(0.0, 1.0, 0.0));
+        let horizontal_line = Line3::new(&Vector3::new(0.0, 1.0, 0.0), &Vector3::new(0.0, 1.0, 10.0));
         let tilted_line = Line3::new( &Vector3::new(0.0, 0.0, 0.0), &Vector3::new(0.0, 1.0, 10.0));
         let in_plane_line = Line3::new(&Vector3::new(0.0, 0.0, 0.0), &Vector3::new(-13.5e39, 13.5e39, 83810.16789));
 
