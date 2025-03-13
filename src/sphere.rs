@@ -33,7 +33,6 @@ impl Sphere {
         // So, no need to check for division by 0
 
         let o = line.a - self.c;
-        let b = 2. * line.v.x * o.x +  2. * line.v.y * o.y + 2. * line.v.z * o.z;
         let b = line.v.dot(&o)*2.0;
         let c = o.x.powi(2) + o.y.powi(2) + o.z.powi(2) - self.r.powi(2);
         let discrim: f64 = b.powi(2) - 4. * line.qa * c;

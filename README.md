@@ -15,7 +15,7 @@ cargo add geom3
 ```
 ## Changelog
 * 1.0.1: Breaking changes: changed interface to get input parameters as references instead of values
-* 1.0.2: Better documentation
+* 1.0.3: Better documentation
 
 ## Pending:
 * Documentation with explanation of formulas in all functions

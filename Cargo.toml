@@ -1,6 +1,6 @@
 [package]
 name = "geom3"
-version = "1.0.2"
+version = "1.0.3"
 edition = "2024"
 authors = ["Ismael Raya"]
 description = "3d geometry classes"
