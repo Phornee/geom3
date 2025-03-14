@@ -17,6 +17,12 @@ mod tests {
         let line = Line3::new(&a, &b);
         assert_eq!(line.calc_point(0.), a);
         assert_eq!(line.calc_point(1.), b);
+
+        let dist = line.dist_point(&Vector3::new(0.0, 0.0, 5.0));
+        assert_eq!(dist, 0.0);
+
+        let dist = line.dist_point(&Vector3::new(3.0, 7.0, 5.0));
+        assert_eq!(dist, 7.6157731058639087);
     }
 
     #[test]

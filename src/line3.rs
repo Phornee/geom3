@@ -11,7 +11,7 @@ pub struct Line3 {
 impl Line3 {
     /// Creates a new `Line3`.
     /// The line is defined by two points in the line, `a` and `b`.
-    /// With that, we canculate the director vector of the line (v = b - a) and the mod^2 of the director vector for
+    /// With that, we calculate the director vector of the line (v = b - a) and the mod^2 of the director vector for
     /// better performance when calculating intersections later.
     pub fn new(a: &Vector3, b:&Vector3) -> Line3 {
         let v = *b - *a;
@@ -25,6 +25,12 @@ impl Line3 {
     /// Calculates a point in the line, given the lambda
     pub fn calc_point(&self, lambda: f64) -> Vector3 {
         self.a + self.v * lambda
+    }
+
+    /// Calculates the distance between a point and the line
+    pub fn dist_point(&self, p: &Vector3) -> f64 {
+        let ap = *p - self.a;
+        ap.cross(&self.v).magnitude() / self.qa.sqrt()
     }
 }
 
