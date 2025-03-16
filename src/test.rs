@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::{Line3, Sphere, Plane};
+    use crate::{Line3, Sphere, Plane, Triangle3};
     use vector3::Vector3;
     use list::List;
 
@@ -17,6 +17,12 @@ mod tests {
         let line = Line3::new(&a, &b);
         assert_eq!(line.calc_point(0.), a);
         assert_eq!(line.calc_point(1.), b);
+
+        let dist = line.dist_point(&Vector3::new(0.0, 0.0, 5.0));
+        assert_eq!(dist, 0.0);
+
+        let dist = line.dist_point(&Vector3::new(3.0, 7.0, 5.0));
+        assert_eq!(dist, 7.6157731058639087);
     }
 
     #[test]
@@ -57,5 +63,37 @@ mod tests {
         instersection = plane.intersects(&in_plane_line);
         assert_eq!(instersection.iter().count(), 0);
     }
+    
+    #[test]
+    fn triangle_tests() {
+        let a: Vector3 = Vector3::new(0.0, 0.0, 0.0);
+        let b: Vector3 = Vector3::new(0.0, 0.0, 10.0);
+        let c: Vector3 = Vector3::new(0.0, 10.0, 0.0);
+        let triangle = Triangle3::new(&a, &b, &c);
 
+        // Point inside the triangle
+        let mut barycentric = triangle.barycentric(&Vector3::new(0.0, 5.0, 5.0));
+        assert_eq!(barycentric, Vector3::new(0.0, 0.5, 0.5));
+        let intersections = triangle.intersects(&Line3::new(&Vector3::new(10.0, 5.0, 5.0), &Vector3::new(0.0, 5.0, 5.0)));
+        assert_eq!(intersections.iter().count(), 1);
+
+        // Point matching vertexes
+        barycentric = triangle.barycentric(&a);
+        assert_eq!(barycentric, Vector3::new(1.0, 0.0, 0.0));
+        barycentric = triangle.barycentric(&b);
+        assert_eq!(barycentric, Vector3::new(0.0, 1.0, 0.0));
+        barycentric = triangle.barycentric(&c);
+        assert_eq!(barycentric, Vector3::new(0.0, 0.0, 1.0));
+
+        // Point outside triangle
+        barycentric = triangle.barycentric(&Vector3::new(0.0, 8.0, 1.0));
+        assert_eq!(barycentric, Vector3::new(0.09999999999999998, 0.1, 0.8));
+        let intersections = triangle.intersects(&Line3::new(&Vector3::new(10.0, 15.0, 15.0), &Vector3::new(0.0, 15.0, 15.0)));
+        assert_eq!(intersections.iter().count(), 0);
+
+
+        // Point outside triangle plane, but inside if projected on plane
+        barycentric = triangle.barycentric(&Vector3::new(0.0, 5.0, 5.0));
+        assert_eq!(barycentric, Vector3::new(0.0, 0.5, 0.5));
+    }
 }

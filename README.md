@@ -1,7 +1,10 @@
 # geom3
 
 ## What is it?
-`geom3` is a rust library for dealing with 3D basic geometric calculations, such as Lines (Rays), Spheres or Planes (Triangles will be available soon).
+`geom3` is a rust library for dealing with 3D basic geometric calculations, such as Lines, Spheres, Planes or Triangles (including barycentric coordinates).
+This low level library focuses only in the mathematical side of things, to be as flexible as possible: if you intend to use it for example for a raytracer, this library provides the mathematical base for it, but WONT provide specific concepts like "Rays", "Collisions", "UV coordinates", "Materials" of "Meshes". You can use this library and build your own specific classes for that.
+The main focus of this package is performance. All formulas try to be optimal in terms of performance, using the most efficient algorithms i could find, and precalculating everything that is suitable to be extracted from the critical functions.
+If you find something that could be optimized, please don´t hesitate to contact me.
 Its the perfect toolset if you plan to start your own raytracer.
 
 ## What does it do?
@@ -16,10 +19,14 @@ cargo add geom3
 ## Changelog
 * 1.0.1: Breaking changes: changed interface to get input parameters as references instead of values
 * 1.0.3: Better documentation
+* 1.1.0: 
+    * Triangle3: Class to detect insterections with 3D triangles. 
+    * Support for barycentric coordinates for the Triangle3
+    * Line3::dist_point (Calculates the minimum distance between a point and a line)
 
 ## Pending:
 * Documentation with explanation of formulas in all functions
-* Triangle3 class (with barycentric coordinates support)
+* Performance profiling with 'Vector3' and 'List': Are there better options?.
 
 
 ## Examples:
