@@ -1,3 +1,4 @@
+mod base;
 mod line3;
 mod sphere;
 mod plane;
@@ -8,3 +9,4 @@ pub use line3::Line3;
 pub use sphere::Sphere;
 pub use plane::Plane;
 pub use triangle3::Triangle3;
+pub use base::{Shape, Intersection};
