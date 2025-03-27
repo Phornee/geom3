@@ -5,7 +5,6 @@
 This low level library focuses only in the mathematical side of things, to be as flexible as possible: if you intend to use it for example for a raytracer, this library provides the mathematical base for it, but WONT provide specific concepts like "Rays", "Collisions", "UV coordinates", "Materials" of "Meshes". You can use this library and build your own specific classes for that.
 The main focus of this package is performance. All formulas try to be optimal in terms of performance, using the most efficient algorithms i could find, and precalculating everything that is suitable to be extracted from the critical functions.
 If you find something that could be optimized, please don´t hesitate to contact me.
-Its the perfect toolset if you plan to start your own raytracer.
 
 ## What does it do?
 You can create/operate with 3D geometric shapes, and calculate intersections, reflections, etc
@@ -23,6 +22,11 @@ cargo add geom3
     * Triangle3: Class to detect insterections with 3D triangles. 
     * Support for barycentric coordinates for the Triangle3
     * Line3::dist_point (Calculates the minimum distance between a point and a line)
+* 1.2.1:
+    * closest_intersection function: To optimize performance by avoiding returning a list, but only the
+      closest intersection in the positive direction of the line.
+      It also return the barycentric coodinates (only for triangles), as they are calculated anyways as part of the
+      intersection detection, so that is not needed to explicitly calculate them later again
 
 ## Pending:
 * Documentation with explanation of formulas in all functions
