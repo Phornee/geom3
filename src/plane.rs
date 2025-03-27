@@ -1,14 +1,17 @@
-use crate::base::Shape;
+use crate::base::{Shape, Intersection};
 use crate::line3::Line3;
 use list::List;
 use std::fmt;
 use vector3::Vector3;
 
+/// A plane in 3D space.
+#[derive(Clone, Copy)]
 pub struct Plane {
     pub a: Vector3, // Pivot point of plane
     pub n: Vector3, // Normal of the Plane (already normalized)
     pub d: f64,     //"Independent" term precalculated for performance
 }
+
 
 impl Plane {
     /// Creates a new `Plane`.
@@ -54,11 +57,11 @@ impl Shape for Plane {
     /// If the line is in the plane, it returns Option None as a convention (because really, all lambdas fulfill).
     /// If the line intersects the plane, it returns the lambda value.
     /// The lambda value is used to calculate the point of intersection with the line.calc_point(lambda).
-    fn closest_intersection(&self, line: &Line3) -> Option<f64> {
+    fn closest_intersection(&self, line: &Line3) -> Option<Intersection> {
         let denom: f64 = self.n.dot(&line.v);
         if denom != 0. {
             let num: f64 = -self.n.dot(&line.a) - self.d;
-            return Some(num / denom);
+            return Some(Intersection::new(num / denom, None));
         }
         return None;
     }

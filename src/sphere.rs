@@ -1,10 +1,11 @@
-use crate::base::Shape;
+use crate::base::{Shape, Intersection};
 use crate::line3::Line3;
 use list::List;
 use vector3::Vector3;
 
 use std::fmt;
 
+#[derive(Clone, Copy)]
 pub struct Sphere {
     pub c: Vector3, // Center of the sphere
     pub r: f64,     // Radius of the sphere
@@ -56,7 +57,7 @@ impl Shape for Sphere {
     /// If the line doesn´t collide the sphere, it returns Option None.
     /// If the line instersects the sphere, it returns the closest positive intersection lambda
     /// The lambda value is used to calculate the point of intersection with the line.calc_point(lambda).
-    fn closest_intersection(&self, line: &Line3) -> Option<f64> {
+    fn closest_intersection(&self, line: &Line3) -> Option<Intersection> {
         // line.qa is the module2 of the director vector of the line, and has alrady be verified to be not 0
         // So, no need to check for division by 0
 
@@ -69,11 +70,11 @@ impl Shape for Sphere {
             let intersection1: f64 = (-b + discrim2) / (2. * line.qa);
             let intersection2: f64 = (-b - discrim2) / (2. * line.qa);
             if intersection1 > 0. && intersection2 > 0. {
-                return Some(intersection1.min(intersection2));
+                return Some(Intersection::new(intersection1.min(intersection2), None));
             } else if intersection1 > 0. {
-                return Some(intersection1);
+                return Some(Intersection::new(intersection1 , None));
             } else if intersection2 > 0. {
-                return Some(intersection2);
+                return Some(Intersection::new(intersection2, None));
             }
         } else if discrim == 0. {
             Some((-b) / (2. * line.qa));

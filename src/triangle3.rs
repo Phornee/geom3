@@ -1,10 +1,12 @@
 use vector3::Vector3;
-use crate::base::Shape;
+use crate::base::{Shape, Intersection};
 use crate::plane::Plane;
 use crate::line3::Line3;
 use list::List;
 
 // Struct that define a triangle in 3D space, with the vertex defined in an
+// anticlockwise order.
+#[derive(Clone, Copy)]
 pub struct Triangle3 {
     pub a: Vector3, // Fist point of the triangle
     pub b: Vector3, // Second point, in anticlockwise from a
@@ -41,6 +43,10 @@ impl Triangle3 {
         let d11: f64 = ac.dot(&ac);
         let denom: f64 =  d00 * d11 - d01 * d01;
 
+        if  denom == 0. {
+            panic!("The triangle cannot be defined by three aligned points.");
+        }
+
         Self { a: *a, b: *b, c: *c, plane, ab, ac, d00, d01, d11, denom }
     }
 
@@ -49,7 +55,7 @@ impl Triangle3 {
     /// * `p` - A reference to the point to calculate the barycentric coordinates.
     /// # Returns
     /// A new `Vector3` with the barycentric coordinates of the point.
-    /// The coordinates are in the order of the vertices of the triangle.
+    /// The coordinates are in the order of the vertices of the triangle (a, b, c).
     /// The sum of the coordinates is always 1.
     /// If the point is on the side of the triangle, one of the coordinates is zero.
     /// If the point is inside the triangle, the coordinates are between 0 and 1.
@@ -100,13 +106,13 @@ impl Shape for Triangle3 {
     /// If the line is parallel to the triangle, it returns an empty list.
     /// If the line is in the plane of the triangle, it returns an empty list as a convention (because really, all lambdas fulfill).
     /// If the line intersects the triangle, it returns a list with the lambda value.
-    fn closest_intersection(&self, line: &Line3) -> Option<f64> {
-        let intersection: Option<f64> = self.plane.closest_intersection(line);
+    fn closest_intersection(&self, line: &Line3) -> Option<Intersection> {
+        let intersection: Option<Intersection> = self.plane.closest_intersection(line);
         if intersection.is_none() {
-            return intersection;
+            return None;
         }
         else {
-            let p: Vector3 = line.calc_point(intersection.unwrap());
+            let p: Vector3 = line.calc_point(intersection.unwrap().lambda);
             let bar: Vector3 = self.barycentric(&p);
             if  1.0 >= bar.x && bar.x >= 0.0 && 
                 1.0 >= bar.y && bar.y >= 0.0 && 

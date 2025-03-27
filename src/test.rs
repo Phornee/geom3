@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::{Line3, Plane, Shape, Sphere, Triangle3};
+    use crate::{Line3, Plane, Shape, Sphere, Triangle3, Intersection};
     use list::List;
     use vector3::Vector3;
 
@@ -44,10 +44,10 @@ mod tests {
         let instersection: List<f64> = sphere.intersects(&line_from_origin);
         assert_eq!(instersection.iter().count(), 2);
         assert_eq!(
-            sphere.closest_intersection(&line_from_outside).unwrap(),
+            sphere.closest_intersection(&line_from_outside).unwrap().lambda,
             0.4
         );
-        assert_eq!(sphere.closest_intersection(&line_from_origin).unwrap(), 0.2);
+        assert_eq!(sphere.closest_intersection(&line_from_origin).unwrap().lambda, 0.2);
 
         // tangent line
         let tangent_instersection: List<f64> = sphere.intersects(&tangent_line);
@@ -68,10 +68,14 @@ mod tests {
     fn plane_tests() {
         let plane: Plane = Plane::new(&Vector3::new(0.0, 0.0, 0.0), &Vector3::new(1.0, 1.0, 0.0));
 
-        let horizontal_line: Line3 =
-            Line3::new(&Vector3::new(0.0, 1.0, 0.0), &Vector3::new(0.0, 1.0, 10.0));
-        let tilted_line: Line3 =
-            Line3::new(&Vector3::new(0.0, -1.0, 0.0), &Vector3::new(0.0, 1.0, 10.0));
+        let horizontal_line: Line3 = Line3::new(
+            &Vector3::new(0.0, 1.0, 0.0), 
+            &Vector3::new(0.0, 1.0, 10.0)
+        );
+        let tilted_line: Line3 = Line3::new(
+            &Vector3::new(0.0, -1.0, 0.0),
+            &Vector3::new(0.0, 1.0, 10.0)
+        );
         let in_plane_line: Line3 = Line3::new(
             &Vector3::new(0.0, 0.0, 0.0),
             &Vector3::new(-13.5e39, 13.5e39, 83810.16789),
@@ -80,7 +84,7 @@ mod tests {
         let mut instersection: List<f64> = plane.intersects(&horizontal_line);
         assert_eq!(instersection.iter().count(), 0);
         assert_eq!(plane.closest_intersection(&horizontal_line).is_none(), true);
-        assert_eq!(plane.closest_intersection(&tilted_line).unwrap(), 0.5);
+        assert_eq!(plane.closest_intersection(&tilted_line).unwrap().lambda, 0.5);
         assert_eq!(plane.closest_intersection(&in_plane_line).is_none(), true);
 
         instersection = plane.intersects(&tilted_line);
@@ -108,12 +112,14 @@ mod tests {
         // Point inside the triangle
         barycentric = triangle.barycentric(&Vector3::new(0.0, 5.0, 5.0));
         assert_eq!(barycentric, Vector3::new(0.0, 0.5, 0.5));
-        let ray_inside: Line3 =
-            Line3::new(&Vector3::new(10.0, 5.0, 5.0), &Vector3::new(0.0, 5.0, 5.0));
+        let ray_inside: Line3 = Line3::new(
+            &Vector3::new(10.0, 5.0, 5.0), 
+            &Vector3::new(0.0, 5.0, 5.0)
+        );
         let intersections: List<f64> = triangle.intersects(&ray_inside);
         assert_eq!(intersections.iter().count(), 1);
-        let mut intersection: Option<f64> = triangle.closest_intersection(&ray_inside);
-        assert_eq!(intersection.unwrap(), 1.0);
+        let mut intersection: Option<Intersection> = triangle.closest_intersection(&ray_inside);
+        assert_eq!(intersection.unwrap().lambda, 1.0);
 
         // Point outside triangle
         barycentric = triangle.barycentric(&Vector3::new(0.0, 8.0, 1.0));

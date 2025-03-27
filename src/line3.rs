@@ -18,7 +18,7 @@ impl Line3 {
         let v: Vector3 = *b - *a;
         let qa: f64 = v.x.powi(2) + v.y.powi(2) + v.z.powi(2);
         if  qa == 0. {
-            panic!("The line cannot be defined by two equal points");
+            panic!("The line cannot be defined by two equal points.");
         }
         Self { a: *a, v, qa }
     }
