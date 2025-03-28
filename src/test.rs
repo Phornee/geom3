@@ -1,8 +1,7 @@
 #[cfg(test)]
 mod tests {
-    use crate::{Line3, Plane, Shape, Sphere, Triangle3, Intersection};
+    use crate::{Vector3, Line3, Plane, Shape, Sphere, Triangle3, Intersection};
     use list::List;
-    use vector3::Vector3;
 
     #[test]
     fn line_tests() {
@@ -109,9 +108,11 @@ mod tests {
         barycentric = triangle.barycentric(&c);
         assert_eq!(barycentric, Vector3::new(0.0, 0.0, 1.0));
 
-        // Point inside the triangle
+        // Point inside the triangle 
         barycentric = triangle.barycentric(&Vector3::new(0.0, 5.0, 5.0));
         assert_eq!(barycentric, Vector3::new(0.0, 0.5, 0.5));
+
+        // ray that intersects inside the triangle
         let ray_inside: Line3 = Line3::new(
             &Vector3::new(10.0, 5.0, 5.0), 
             &Vector3::new(0.0, 5.0, 5.0)
@@ -119,7 +120,9 @@ mod tests {
         let intersections: List<f64> = triangle.intersects(&ray_inside);
         assert_eq!(intersections.iter().count(), 1);
         let mut intersection: Option<Intersection> = triangle.closest_intersection(&ray_inside);
+        assert!(!intersection.is_none());
         assert_eq!(intersection.unwrap().lambda, 1.0);
+        assert_eq!(intersection.unwrap().barycentric.unwrap(), Vector3::new(0.0, 0.5, 0.5));
 
         // Point outside triangle
         barycentric = triangle.barycentric(&Vector3::new(0.0, 8.0, 1.0));

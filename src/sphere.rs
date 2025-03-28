@@ -1,7 +1,7 @@
 use crate::base::{Shape, Intersection};
 use crate::line3::Line3;
 use list::List;
-use vector3::Vector3;
+use crate::vector3::Vector3;
 
 use std::fmt;
 

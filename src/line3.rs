@@ -1,4 +1,4 @@
-use vector3::Vector3;
+use crate::vector3::Vector3;
 use std::fmt;
 
 /// Struct that define a line in 3D space, with the pivot point and the director vector of the line

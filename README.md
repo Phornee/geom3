@@ -27,6 +27,8 @@ cargo add geom3
       closest intersection in the positive direction of the line.
       It also return the barycentric coodinates (only for triangles), as they are calculated anyways as part of the
       intersection detection, so that is not needed to explicitly calculate them later again
+* 1.2.2
+    * Fixed bug in closest_intersection: Was not returning the barycentric coordinates correctly
 
 ## Pending:
 * Documentation with explanation of formulas in all functions

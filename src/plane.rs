@@ -2,7 +2,7 @@ use crate::base::{Shape, Intersection};
 use crate::line3::Line3;
 use list::List;
 use std::fmt;
-use vector3::Vector3;
+use crate::vector3::Vector3;
 
 /// A plane in 3D space.
 #[derive(Clone, Copy)]

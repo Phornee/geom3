@@ -1,6 +1,6 @@
 use crate::line3::Line3;
 use list::List;
-use vector3::Vector3;
+use crate::vector3::Vector3;
 
 /// Struct that define a line in 3D space, with the pivot point and the director vector of the line.
 /// It contains the minimal information of the Intersection with a Shape.

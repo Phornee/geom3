@@ -1,4 +1,4 @@
-use vector3::Vector3;
+use crate::vector3::Vector3;
 use crate::base::{Shape, Intersection};
 use crate::plane::Plane;
 use crate::line3::Line3;
@@ -107,7 +107,7 @@ impl Shape for Triangle3 {
     /// If the line is in the plane of the triangle, it returns an empty list as a convention (because really, all lambdas fulfill).
     /// If the line intersects the triangle, it returns a list with the lambda value.
     fn closest_intersection(&self, line: &Line3) -> Option<Intersection> {
-        let intersection: Option<Intersection> = self.plane.closest_intersection(line);
+        let mut intersection: Option<Intersection> = self.plane.closest_intersection(line);
         if intersection.is_none() {
             return None;
         }
@@ -117,7 +117,9 @@ impl Shape for Triangle3 {
             if  1.0 >= bar.x && bar.x >= 0.0 && 
                 1.0 >= bar.y && bar.y >= 0.0 && 
                 1.0 >= bar.z && bar.z >= 0.0 {
-                return intersection;
+                // intersection.insert(Intersection { lambda: intersection.unwrap().lambda, barycentric: Some(bar) });
+                //intersection.as_mut().barycentric = Some(bar);
+                return Some(Intersection { lambda: intersection.unwrap().lambda, barycentric: Some(bar) });
             }
             else {
                 return None;
