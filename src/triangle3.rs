@@ -117,7 +117,7 @@ impl Shape for Triangle3 {
             if  1.0 >= bar.x && bar.x >= 0.0 && 
                 1.0 >= bar.y && bar.y >= 0.0 && 
                 1.0 >= bar.z && bar.z >= 0.0 {
-                return intersection;
+                return Some(Intersection { lambda: intersection.unwrap().lambda, barycentric: Some(bar) });
             }
             else {
                 return None;
