@@ -20,6 +20,11 @@ impl Vector3 {
         (self.x.powi(2) + self.y.powi(2) + self.z.powi(2)).sqrt()
     }
 
+    /// Returns the magnitude (length) of the vector ^2.
+    pub fn magnitude_2(&self) -> f64 {
+        self.x.powi(2) + self.y.powi(2) + self.z.powi(2)
+    }
+
     /// Returns a normalized copy of the vector.
     pub fn normalize(&self) -> Vector3 {
         let magnitude = self.magnitude();
@@ -122,6 +127,16 @@ impl Mul<f64> for Vector3 {
         }
     }
 }
+
+// impl Mul<Vector3> for Vector3 {
+//     fn mul(self, other: Vector3) -> Vector3 {
+//         Vector3 {
+//             x: self.x * other.x,
+//             y: self.y * other.y,
+//             z: self.z * other.z,
+//         }
+//     }
+// }
 
 impl Div<f64> for Vector3 {
     type Output = Vector3;

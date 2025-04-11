@@ -107,7 +107,7 @@ impl Shape for Triangle3 {
     /// If the line is in the plane of the triangle, it returns an empty list as a convention (because really, all lambdas fulfill).
     /// If the line intersects the triangle, it returns a list with the lambda value.
     fn closest_intersection(&self, line: &Line3) -> Option<Intersection> {
-        let mut intersection: Option<Intersection> = self.plane.closest_intersection(line);
+        let intersection: Option<Intersection> = self.plane.closest_intersection(line);
         if intersection.is_none() {
             return None;
         }

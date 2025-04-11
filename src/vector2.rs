@@ -19,6 +19,11 @@ impl Vector2 {
         (self.x.powi(2) + self.y.powi(2) ).sqrt()
     }
 
+    /// Returns the magnitude (length) of the vector ^2.
+    pub fn magnitude_2(&self) -> f64 {
+        self.x.powi(2) + self.y.powi(2)
+    }
+
     /// Returns a normalized copy of the vector.
     pub fn normalize(&self) -> Vector2 {
         let magnitude = self.magnitude();

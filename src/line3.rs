@@ -16,7 +16,7 @@ impl Line3 {
     /// better performance when calculating intersections later.
     pub fn new(a: &Vector3, b:&Vector3) -> Line3 {
         let v: Vector3 = *b - *a;
-        let qa: f64 = v.x.powi(2) + v.y.powi(2) + v.z.powi(2);
+        let qa: f64 = v.magnitude_2();
         if  qa == 0. {
             panic!("The line cannot be defined by two equal points.");
         }
